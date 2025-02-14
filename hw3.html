@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        const Hotdogs = "Hotdogs";
+        const HotdogPrice = 4.99;
+        const FrenchFries = "French Fries";
+        const FrenchFryPrice = 3.99;
+        const Drinks = "Drinks";
+        const DrinkPrice = 1.79;
+        var numDogs, numFries, numSoda;
+        var total;
+        
+        function ask(){
+            numDogs = parseInt(prompt("How many hotdogs do you want:"), 10);
+            document.getElementById("numDogs").textContent += " " + numDogs + ", total cost: " + showMoney(HotdogPrice * numDogs);
+            numFries = parseInt(prompt("How many fries do you want:"), 10);
+            document.getElementById("numFries").textContent += " " + numFries + ", total cost: " + showMoney(numFries * FrenchFryPrice);
+            numSoda = parseInt(prompt("How many sodas do you want:"), 10);
+            document.getElementById("numSoda").textContent += " " + numSoda + ", total cost: " + showMoney(numSoda * DrinkPrice);
+        }    
+        function showMoney(value) {
+            var power = Math.pow(10, 2),
+            value = Math.abs(Math.round(value * power)),
+            result =  '' + String(Math.floor(value / power));
+            var fraction = String(value % power),
+                padding = new Array(Math.max(2 - fraction.length, 0) + 1).join('0');
+            result += '.' + padding + fraction;
+
+            return result;
+        }
+        function totalPrice(){
+            total = numDogs * HotdogPrice + numFries * FrenchFryPrice + numSoda * DrinkPrice;
+            document.getElementById("subtotalBeforeDiscount").textContent += " " + showMoney(total);            
+        }
+        function discount(){
+            total = total >= 30 ? total * 0.9 : total;
+            document.getElementById("Discount").textContent += " " + showMoney(total);    
+        }
+        function applyTax(){
+            total *= 1.0625;
+            document.getElementById("applyTax").textContent += " " + showMoney(total);    
+        }
+        
+    </script>
+    <head>
+        <h1>Joe's Hotdogs</h1>
+    </head>
+    <body>
+        <p id ="numDogs">Number of hotdogs ordered:</p>
+        <p id ="numFries">Number of fries ordered:</p>
+        <p id ="numSoda">Number of sodas ordered:</p>
+        <script>ask()</script>
+        <p id ="subtotalBeforeDiscount">Subtotal before discount:</p>
+        <script>totalPrice()</script>       
+        <p id ="Discount">Discounted:</p>
+        <script>discount()</script>
+        <p id = "applyTax">Total with tax:</p>
+        <script>applyTax()</script>
+
+    </body>
+</html>
